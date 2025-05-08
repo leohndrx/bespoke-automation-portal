@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 import OnboardingForm from './onboarding-form';
 
 export default async function OnboardingPage() {
-  const supabase = createClient();
+  const supabase = await createClient();
   
   // Check if user is authenticated
   const { data: { session } } = await supabase.auth.getSession();
