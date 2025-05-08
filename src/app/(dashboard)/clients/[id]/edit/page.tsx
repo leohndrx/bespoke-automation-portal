@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -5,11 +7,13 @@ import { Button } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/server';
 import EditClientForm from './edit-client-form';
 
-export default async function EditClientPage(
-  props: { params: { id: string } }
-) {
+export default async function EditClientPage({
+  params,
+}: { 
+  params: { id: string }; 
+}) {
   // Access id directly without destructuring
-  const clientId = props.params.id;
+  const clientId = params.id;
   const supabase = await createClient();
   
   // Fetch client

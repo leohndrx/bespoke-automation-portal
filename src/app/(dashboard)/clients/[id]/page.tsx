@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import React from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -6,11 +8,13 @@ import { ProjectCard } from '@/components/project/project-card';
 import { Button } from '@/components/ui/button';
 import { Project } from '@/lib/supabase/types';
 
-export default async function ClientDetailPage(
-  props: { params: { id: string } }
-) {
+export default async function ClientDetailPage({
+  params,
+}: { 
+  params: { id: string }; 
+}) {
   // Access id directly without destructuring to avoid NextJS warnings
-  const clientId = props.params.id;
+  const clientId = params.id;
   const supabase = await createClient();
   
   // Fetch client

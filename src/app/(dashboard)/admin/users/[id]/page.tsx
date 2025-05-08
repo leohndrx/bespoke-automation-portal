@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import React from 'react';
 import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
@@ -5,16 +7,18 @@ import { createClient } from '@/lib/supabase/server';
 import { Button } from '@/components/ui/button';
 import { isAdmin } from '@/lib/auth/roles';
 
-export default async function AdminUserDetailPage(
-  props: { params: { id: string } }
-) {
+export default async function AdminUserDetailPage({
+  params,
+}: { 
+  params: { id: string }; 
+}) {
   // Check if user is admin
   const isAdminUser = await isAdmin();
   if (!isAdminUser) {
     redirect('/dashboard');
   }
   
-  const userId = props.params.id;
+  const userId = params.id;
   const supabase = await createClient();
   
   // Fetch user

@@ -6,9 +6,14 @@ import { createClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/auth/roles';
 import EditCompanyForm from './edit-company-form';
 
-export default async function EditCompanyPage(
-  props: { params: { id: string } }
-) {
+// This prevents infinite recursion by ensuring dynamic data fetching
+export const dynamic = 'force-dynamic';
+
+export default async function EditCompanyPage({
+  params,
+}: { 
+  params: { id: string }; 
+}) {
   // Check if user is admin
   const isAdminUser = await isAdmin();
   if (!isAdminUser) {
@@ -16,7 +21,7 @@ export default async function EditCompanyPage(
   }
   
   // Access id directly without destructuring
-  const clientId = props.params.id;
+  const clientId = params.id;
   const supabase = await createClient();
   
   // Fetch client

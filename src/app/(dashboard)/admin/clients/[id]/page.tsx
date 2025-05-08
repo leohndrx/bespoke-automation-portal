@@ -6,9 +6,14 @@ import { createAdminClient } from '@/lib/supabase/admin';
 import { Button } from '@/components/ui/button';
 import { isAdmin } from '@/lib/auth/roles';
 
-export default async function AdminClientDetailPage(
-  props: { params: { id: string } }
-) {
+// This prevents infinite recursion by ensuring dynamic data fetching
+export const dynamic = 'force-dynamic';
+
+export default async function AdminClientDetailPage({
+  params,
+}: { 
+  params: { id: string }; 
+}) {
   // Check if user is admin
   const isAdminUser = await isAdmin();
   if (!isAdminUser) {
@@ -16,7 +21,7 @@ export default async function AdminClientDetailPage(
   }
   
   // Access id directly without destructuring
-  const clientId = props.params.id;
+  const clientId = params.id;
   const supabase = await createClient();
   const supabaseAdmin = createAdminClient();
   
