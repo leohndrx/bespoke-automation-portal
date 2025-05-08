@@ -6,15 +6,21 @@ import { createClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/auth/roles';
 import EditProjectForm from './edit-project-form';
 
-export default async function EditProjectPage({ 
-  params 
-}: { 
-  params: { id: string } 
+// This prevents infinite recursion by ensuring dynamic data fetching
+export const dynamic = 'force-dynamic';
+
+// Define proper types for params
+type Params = {
+  id: string;
+};
+
+export default async function EditProjectPage(props: { 
+  params: Promise<Params>; 
 }) {
   const supabase = await createClient();
   
   // Await params before accessing its properties
-  const { id } = await Promise.resolve(params);
+  const { id } = await props.params;
   const projectId = id;
   
   // Check if user is admin

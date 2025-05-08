@@ -7,15 +7,21 @@ import { Button } from '@/components/ui/button';
 import { formatDate } from '@/lib/utils/date';
 import { DeleteTaskButton } from '@/components/delete-buttons/delete-task-button';
 
-export default async function TaskDetailPage({ 
-  params 
-}: { 
-  params: { id: string } 
+// This prevents infinite recursion by ensuring dynamic data fetching
+export const dynamic = 'force-dynamic';
+
+// Define proper types for params
+type Params = {
+  id: string;
+};
+
+export default async function TaskDetailPage(props: {
+  params: Promise<Params>;
 }) {
   const supabase = await createClient();
   
   // Await params before accessing its properties
-  const { id } = await Promise.resolve(params);
+  const { id } = await props.params;
   const taskId = id;
   const isUserAdmin = await isAdmin();
   
