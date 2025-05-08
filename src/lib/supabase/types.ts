@@ -28,6 +28,10 @@ export type Task = {
 export type Client = {
   id: string;
   company: string;
+  name: string | null;
+  phone: string | null;
+  email: string | null;
+  description: string | null;
   owner_id: string;
   created_at: string;
 };
