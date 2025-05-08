@@ -15,14 +15,15 @@ interface ProjectWithClient extends Project {
   client: Client | null;
 }
 
-export default async function ProjectsPage({ 
-  searchParams 
-}: { 
-  searchParams: Record<string, string | string[] | undefined>;
+// Define SearchParams type
+type SearchParams = Record<string, string | string[] | undefined>;
+
+export default async function ProjectsPage(props: { 
+  searchParams: Promise<SearchParams>;
 }) {
   // Properly handle searchParams in Next.js 15 - use await to access properties
-  const params = await searchParams;
-  const isArchived = params?.archived === 'true';
+  const searchParams = await props.searchParams;
+  const isArchived = searchParams?.archived === 'true';
   
   const supabase = await createClient();
   const isAdminUser = await isAdmin();

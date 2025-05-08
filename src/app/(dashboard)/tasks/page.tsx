@@ -11,11 +11,13 @@ export const dynamic = 'force-dynamic';
 // Disable static generation
 export const revalidate = 0;
 
-export default async function TasksPage({
-  searchParams,
-}: { 
-  searchParams: Record<string, string | string[] | undefined>;
+// Define SearchParams type
+type SearchParams = Record<string, string | string[] | undefined>;
+
+export default async function TasksPage(props: {
+  searchParams: Promise<SearchParams>;
 }) {
+  const searchParams = await props.searchParams;
   const supabase = await createClient();
   const isUserAdmin = await isAdmin();
   

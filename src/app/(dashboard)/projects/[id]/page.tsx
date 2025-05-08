@@ -11,21 +11,26 @@ import { DeleteProjectButton } from '@/components/delete-buttons/delete-project-
 // This prevents infinite recursion by ensuring dynamic data fetching
 export const dynamic = 'force-dynamic';
 
-export default async function ProjectDetailPage({
-  params,
-  searchParams,
-}: { 
-  params: { id: string }; 
-  searchParams: Record<string, string | string[] | undefined>;
+// Define types for params and searchParams
+type Params = {
+  id: string;
+};
+
+type SearchParams = Record<string, string | string[] | undefined>;
+
+export default async function ProjectDetailPage(props: {
+  params: Promise<Params>;
+  searchParams: Promise<SearchParams>;
 }) {
   const supabase = await createClient();
   const isUserAdmin = await isAdmin();
   
   // Await params before accessing its properties
-  const { id } = await Promise.resolve(params);
+  const { id } = await props.params;
   const projectId = id;
   
   // Safely handle search params in Next.js 15
+  const searchParams = await props.searchParams;
   const statusParam = searchParams?.status as string || null;
   
   // Fetch project

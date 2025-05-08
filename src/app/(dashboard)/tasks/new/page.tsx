@@ -5,11 +5,16 @@ import { Button } from '@/components/ui/button';
 import NewTaskForm from './new-task-form';
 import { Project, Client } from '@/lib/supabase/types';
 
-export default async function NewTaskPage({ 
-  searchParams 
-}: { 
-  searchParams: Record<string, string | string[] | undefined>;
+// Add dynamic flag
+export const dynamic = 'force-dynamic';
+
+// Define SearchParams type
+type SearchParams = Record<string, string | string[] | undefined>;
+
+export default async function NewTaskPage(props: { 
+  searchParams: Promise<SearchParams>;
 }) {
+  const searchParams = await props.searchParams;
   const supabase = await createClient();
   
   // Fetch projects for the form

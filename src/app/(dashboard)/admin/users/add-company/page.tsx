@@ -6,10 +6,16 @@ import { Button } from '@/components/ui/button';
 import { isAdmin } from '@/lib/auth/roles';
 import AddToCompanyForm from './add-to-company-form';
 
-export default async function AddUserToCompanyPage({
-  searchParams,
-}: {
-  searchParams: { user?: string };
+// Add dynamic flag
+export const dynamic = 'force-dynamic';
+
+// Define SearchParams type as a Promise
+type SearchParams = {
+  user?: string;
+};
+
+export default async function AddUserToCompanyPage(props: {
+  searchParams: Promise<SearchParams>;
 }) {
   // Check if user is admin
   const isAdminUser = await isAdmin();
@@ -17,6 +23,8 @@ export default async function AddUserToCompanyPage({
     redirect('/dashboard');
   }
   
+  // Get searchParams by awaiting the promise
+  const searchParams = await props.searchParams;
   const userId = searchParams.user;
   
   if (!userId) {

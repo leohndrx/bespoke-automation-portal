@@ -4,11 +4,16 @@ import { Button } from '@/components/ui/button';
 import NewProjectForm from './new-project-form';
 import { createClient } from '@/lib/supabase/server';
 
-export default async function NewProjectPage({ 
-  searchParams 
-}: { 
-  searchParams: Record<string, string | string[] | undefined>;
+// Add dynamic flag
+export const dynamic = 'force-dynamic';
+
+// Define SearchParams type
+type SearchParams = Record<string, string | string[] | undefined>;
+
+export default async function NewProjectPage(props: { 
+  searchParams: Promise<SearchParams>;
 }) {
+  const searchParams = await props.searchParams;
   const supabase = await createClient();
   const client_id = searchParams?.client_id as string;
   
