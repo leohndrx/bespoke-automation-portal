@@ -7,10 +7,13 @@ import { createClient } from '@/lib/supabase/server';
 import { Button } from '@/components/ui/button';
 import { isAdmin } from '@/lib/auth/roles';
 
-export default async function AdminUserDetailPage({
-  params,
-}: { 
-  params: { id: string }; 
+// Define proper types for params
+type Params = {
+  id: string;
+};
+
+export default async function AdminUserDetailPage(props: {
+  params: Promise<Params>;
 }) {
   // Check if user is admin
   const isAdminUser = await isAdmin();
@@ -18,8 +21,8 @@ export default async function AdminUserDetailPage({
     redirect('/dashboard');
   }
   
-  // Access id directly with Promise.resolve
-  const { id } = await Promise.resolve(params);
+  // Access id by awaiting the params promise
+  const { id } = await props.params;
   const userId = id;
   const supabase = await createClient();
   

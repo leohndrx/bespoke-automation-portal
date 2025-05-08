@@ -8,13 +8,16 @@ import { ProjectCard } from '@/components/project/project-card';
 import { Button } from '@/components/ui/button';
 import { Project } from '@/lib/supabase/types';
 
-export default async function ClientDetailPage({
-  params,
-}: { 
-  params: { id: string }; 
+// Define proper types for params
+type Params = {
+  id: string;
+};
+
+export default async function ClientDetailPage(props: {
+  params: Promise<Params>;
 }) {
-  // Access id directly with Promise.resolve
-  const { id } = await Promise.resolve(params);
+  // Access id by awaiting the params promise
+  const { id } = await props.params;
   const clientId = id;
   const supabase = await createClient();
   

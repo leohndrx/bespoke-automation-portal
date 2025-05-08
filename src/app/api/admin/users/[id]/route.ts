@@ -3,9 +3,14 @@ import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { isAdmin } from '@/lib/auth/roles';
 
+// Define proper types for params
+type Params = {
+  id: string;
+};
+
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<Params> }
 ) {
   try {
     // Check if current user is admin
@@ -14,7 +19,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
 
-    const { id } = await Promise.resolve(params);
+    const { id } = await params;
     const userId = id;
     if (!userId) {
       return NextResponse.json({ error: 'User ID is required' }, { status: 400 });

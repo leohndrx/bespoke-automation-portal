@@ -9,10 +9,13 @@ import EditCompanyForm from './edit-company-form';
 // This prevents infinite recursion by ensuring dynamic data fetching
 export const dynamic = 'force-dynamic';
 
-export default async function EditCompanyPage({
-  params,
-}: { 
-  params: { id: string }; 
+// Define proper types for params
+type Params = {
+  id: string;
+};
+
+export default async function EditCompanyPage(props: {
+  params: Promise<Params>;
 }) {
   // Check if user is admin
   const isAdminUser = await isAdmin();
@@ -20,8 +23,8 @@ export default async function EditCompanyPage({
     redirect('/dashboard');
   }
   
-  // Access id directly without destructuring and resolve params
-  const { id } = await Promise.resolve(params);
+  // Access id by awaiting the params promise
+  const { id } = await props.params;
   const clientId = id;
   const supabase = await createClient();
   

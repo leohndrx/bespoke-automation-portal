@@ -7,13 +7,16 @@ import { Button } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/server';
 import EditClientForm from './edit-client-form';
 
-export default async function EditClientPage({
-  params,
-}: { 
-  params: { id: string }; 
+// Define proper types for params
+type Params = {
+  id: string;
+};
+
+export default async function EditClientPage(props: {
+  params: Promise<Params>;
 }) {
-  // Access id directly with Promise.resolve
-  const { id } = await Promise.resolve(params);
+  // Access id by awaiting the params promise
+  const { id } = await props.params;
   const clientId = id;
   const supabase = await createClient();
   
