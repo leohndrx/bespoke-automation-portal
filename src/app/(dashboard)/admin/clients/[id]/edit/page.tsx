@@ -20,8 +20,9 @@ export default async function EditCompanyPage({
     redirect('/dashboard');
   }
   
-  // Access id directly without destructuring
-  const clientId = params.id;
+  // Access id directly without destructuring and resolve params
+  const { id } = await Promise.resolve(params);
+  const clientId = id;
   const supabase = await createClient();
   
   // Fetch client

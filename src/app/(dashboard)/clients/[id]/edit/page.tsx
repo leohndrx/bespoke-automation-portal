@@ -12,8 +12,9 @@ export default async function EditClientPage({
 }: { 
   params: { id: string }; 
 }) {
-  // Access id directly without destructuring
-  const clientId = params.id;
+  // Access id directly with Promise.resolve
+  const { id } = await Promise.resolve(params);
+  const clientId = id;
   const supabase = await createClient();
   
   // Fetch client

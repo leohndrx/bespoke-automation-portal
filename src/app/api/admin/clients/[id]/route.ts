@@ -13,7 +13,8 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
 
-    const clientId = params.id;
+    const { id } = await Promise.resolve(params);
+    const clientId = id;
     if (!clientId) {
       return NextResponse.json({ error: 'Client ID is required' }, { status: 400 });
     }

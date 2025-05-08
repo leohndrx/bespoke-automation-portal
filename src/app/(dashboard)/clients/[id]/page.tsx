@@ -13,8 +13,9 @@ export default async function ClientDetailPage({
 }: { 
   params: { id: string }; 
 }) {
-  // Access id directly without destructuring to avoid NextJS warnings
-  const clientId = params.id;
+  // Access id directly with Promise.resolve
+  const { id } = await Promise.resolve(params);
+  const clientId = id;
   const supabase = await createClient();
   
   // Fetch client

@@ -18,7 +18,9 @@ export default async function AdminUserDetailPage({
     redirect('/dashboard');
   }
   
-  const userId = params.id;
+  // Access id directly with Promise.resolve
+  const { id } = await Promise.resolve(params);
+  const userId = id;
   const supabase = await createClient();
   
   // Fetch user

@@ -20,8 +20,9 @@ export default async function AdminClientDetailPage({
     redirect('/dashboard');
   }
   
-  // Access id directly without destructuring
-  const clientId = params.id;
+  // Access id directly with Promise.resolve
+  const { id } = await Promise.resolve(params);
+  const clientId = id;
   const supabase = await createClient();
   const supabaseAdmin = createAdminClient();
   
