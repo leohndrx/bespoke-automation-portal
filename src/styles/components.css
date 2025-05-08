@@ -1,0 +1,209 @@
+/* Client Card */
+.client-card {
+  @apply bg-white rounded-xl border border-border overflow-hidden shadow-sm;
+  transition: all 0.2s ease;
+}
+
+.client-card:hover {
+  @apply shadow-md;
+  transform: translateY(-2px);
+}
+
+.client-card-header {
+  @apply p-4 bg-muted border-b border-border;
+}
+
+.client-card-body {
+  @apply p-5;
+}
+
+.client-card-title {
+  @apply text-xl font-semibold;
+}
+
+.client-card-subtitle {
+  @apply text-base font-medium text-muted-foreground mt-1;
+}
+
+/* Detail Section */
+.detail-section {
+  @apply mb-8 bg-white p-6 rounded-xl border border-border shadow-sm;
+}
+
+.detail-section-title {
+  @apply text-lg font-medium mb-4 border-b border-border pb-3;
+}
+
+.detail-row {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4 py-3 border-b border-border last:border-0;
+}
+
+.detail-label {
+  @apply text-muted-foreground font-medium text-sm;
+}
+
+.detail-value {
+  @apply text-foreground;
+}
+
+/* Admin Table */
+.admin-table {
+  @apply w-full border-collapse rounded-xl overflow-hidden;
+}
+
+.admin-table th {
+  @apply bg-muted text-left py-3 px-4 font-medium border-b border-border;
+}
+
+.admin-table td {
+  @apply py-4 px-4 bg-white border-b border-border;
+}
+
+.admin-table tr:hover td {
+  @apply bg-muted bg-opacity-50;
+}
+
+/* Action Button Group */
+.action-button-group {
+  @apply flex space-x-3;
+}
+
+/* Form Group */
+.form-group {
+  @apply mb-5;
+}
+
+/* Section */
+.section {
+  @apply mb-8;
+}
+
+.section-title {
+  @apply text-xl font-bold mb-4 flex items-center;
+}
+
+.section-title::before {
+  content: "";
+  @apply w-1 h-5 mr-2 inline-block bg-primary rounded-full;
+}
+
+/* Status Badge */
+.status-badge {
+  @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium;
+}
+
+.status-badge-active {
+  @apply bg-green-500 bg-opacity-10 text-green-600;
+}
+
+.status-badge-inactive {
+  @apply bg-muted text-muted-foreground;
+}
+
+.status-badge-pending {
+  @apply bg-amber-500 bg-opacity-10 text-amber-600;
+}
+
+/* Navigation */
+.nav-item {
+  @apply flex items-center px-3 py-2 rounded-lg transition-colors;
+  @apply hover:bg-muted hover:text-foreground;
+}
+
+.nav-item.active {
+  @apply bg-primary bg-opacity-10 text-primary;
+}
+
+.nav-item-icon {
+  @apply mr-3 text-muted-foreground;
+}
+
+/* Dashboard Widgets */
+.stat-card {
+  @apply bg-white p-5 rounded-xl border border-border shadow-sm;
+  transition: all 0.2s ease;
+}
+
+.stat-card:hover {
+  @apply shadow-md;
+  transform: translateY(-2px);
+}
+
+.stat-value {
+  @apply text-2xl font-bold mt-2;
+}
+
+.stat-label {
+  @apply text-muted-foreground text-sm;
+}
+
+.stat-change {
+  @apply text-sm font-medium flex items-center mt-2;
+}
+
+.stat-change.positive {
+  @apply text-green-600;
+}
+
+.stat-change.negative {
+  @apply text-red-600;
+}
+
+/* Data Visualization */
+.chart-container {
+  @apply bg-white p-4 rounded-xl border border-border shadow-sm;
+}
+
+/* Search Bar */
+.search-bar {
+  @apply relative w-full max-w-md;
+}
+
+.search-bar input {
+  @apply pl-10 pr-4 py-2 rounded-lg;
+  @apply border-input bg-background text-foreground;
+}
+
+.search-bar input:focus {
+  @apply outline-none ring-2 ring-ring border-transparent;
+}
+
+.search-bar svg {
+  @apply absolute left-3 top-2.5 text-muted-foreground;
+}
+
+/* Modal */
+.modal-backdrop {
+  @apply fixed inset-0 backdrop-blur-sm bg-black bg-opacity-50;
+}
+
+.modal-content {
+  @apply max-w-lg w-full mx-auto max-h-[90vh] overflow-auto;
+  @apply bg-background border border-border rounded-xl shadow-lg;
+}
+
+.modal-header {
+  @apply p-4 border-b border-border;
+}
+
+.modal-body {
+  @apply p-5;
+}
+
+.modal-footer {
+  @apply p-4 flex justify-end space-x-3 border-t border-border;
+}
+
+/* Pagination */
+.pagination {
+  @apply flex space-x-1 mt-4;
+}
+
+.pagination-item {
+  @apply px-3 py-1 rounded-md transition-colors;
+  @apply hover:bg-muted;
+}
+
+.pagination-item.active {
+  @apply bg-primary text-white;
+} 

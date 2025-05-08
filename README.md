@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bespoke Automation Portal
+
+A Next.js 14 project management and task automation portal built with Supabase.
+
+## Features
+
+- Authentication with email/password
+- Project management (create, view, edit projects)
+- Task management with statuses (todo, in progress, done)
+- Tasks can be standalone or linked to projects
+- Dashboard with overview statistics
+- Responsive design with Tailwind CSS
+
+## Tech Stack
+
+- Next.js 14 (App Router)
+- TypeScript
+- Supabase (Authentication, Database)
+- TailwindCSS
+- React Hook Form
+- Framer Motion
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ and npm
+- A Supabase account and project
+
+### Setup
+
+1. Clone the repository
+
+```bash
+git clone <repository-url>
+cd bespoke-automation-portal
+```
+
+2. Install dependencies
+
+```bash
+npm install
+```
+
+3. Set up environment variables
+
+Create a `.env.local` file in the root of the project with the following variables:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=YOUR_SUPABASE_URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+SUPABASE_SERVICE_ROLE_KEY=YOUR_SUPABASE_SERVICE_ROLE_KEY
+```
+
+Replace the placeholder values with your Supabase project credentials.
+
+4. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Database Schema
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The application uses two main tables in Supabase:
 
-## Learn More
+### Projects Table
 
-To learn more about Next.js, take a look at the following resources:
+- `id` (uuid, primary key)
+- `name` (text, not null)
+- `description` (text)
+- `owner_id` (uuid, foreign key to auth.users)
+- `created_at` (timestamp with time zone)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Tasks Table
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `id` (uuid, primary key)
+- `project_id` (uuid, foreign key to projects, nullable)
+- `title` (text, not null)
+- `description` (text)
+- `status` (text enum: todo, in_progress, done)
+- `owner_id` (uuid, foreign key to auth.users)
+- `due_date` (date, nullable)
+- `created_at` (timestamp with time zone)
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License.
